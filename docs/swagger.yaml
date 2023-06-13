@@ -1,0 +1,86 @@
+basePath: /api
+definitions:
+  models.Promotion:
+    properties:
+      expiresAt:
+        type: string
+      id:
+        type: string
+      price:
+        type: number
+    type: object
+  utils.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: This services manages promotions
+  title: Promotions API
+  version: "1.0"
+paths:
+  /promotions/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get promotion by promotion id
+      parameters:
+      - description: Promotion ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Promotion'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Get promotion
+      tags:
+      - Promotions
+  /promotions/bulk:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload promotions from CSV file
+      parameters:
+      - description: CSV File
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Promotion'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Upload promotions
+      tags:
+      - Promotions
+swagger: "2.0"

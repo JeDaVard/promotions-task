@@ -1,0 +1,12 @@
+.docker/db/*
+
+.env
+
+*.tgz
+
+.idea
+
+.air.toml
+.air
+
+*.dec
