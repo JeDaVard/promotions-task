@@ -1,5 +1,3 @@
-.docker/db/*
-
 .env
 
 *.tgz
