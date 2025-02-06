@@ -67,3 +67,18 @@ func UploadPromotion(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "CSV file uploaded successfully, records are being saved to DB, you can track the progress, and we will notify when it's finished."}) // progress and notification not implemented
 }
+
+// ListPromotions godoc
+// @Summary      List promotions
+// @Description  List all promotions
+// @Tags         Promotions
+// @Produce      json
+// @Success      200  {array}  models.Promotion
+// @Failure      400  {object}  utils.HTTPError
+// @Router       /promotions [get]
+func ListPromotions(c *gin.Context) {
+	var promotions []models.Promotion
+	db.DB.Find(&promotions)
+
+	c.JSON(200, promotions)
+}
